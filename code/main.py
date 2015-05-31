@@ -159,7 +159,6 @@ rf_cols = [
     'hour', 'dow', 'woy', 'peak'
 ]
 
-rf_pred = predict_on_test_set(rf_model, rf_cols)
 (rf_p, rf_t, rf_score) = predict_on_validation_set(rf_model, rf_cols)
 print rf_score
 
@@ -171,7 +170,7 @@ gbm_cols = [
     'hour', 'dow', 'year', 'ideal', 'count_season',
     ]
 
-gbm_pred = predict_on_test_set(gbm_model, gbm_cols)
+
 (gbm_p, gbm_t, gbm_score) = predict_on_validation_set(gbm_model, gbm_cols)
 print gbm_score
 
@@ -179,6 +178,8 @@ print gbm_score
 y_p = np.round(.2*rf_p + .8*gbm_p)
 print get_rmsle(y_p, rf_t)
 
+rf_pred = predict_on_test_set(rf_model, rf_cols)
+gbm_pred = predict_on_test_set(gbm_model, gbm_cols)
 y_pred = np.round(.2*rf_pred + .8*gbm_pred)
 # output predictions for submission
 df_test['count'] = y_pred
